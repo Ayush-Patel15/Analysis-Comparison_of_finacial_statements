@@ -1,10 +1,5 @@
-from db_connect import connect_to_the_database, insert_and_update_collection
 from bs4 import BeautifulSoup
-from datetime import datetime
 import requests
-
-NIFTY50_URL = "https://www.moneycontrol.com/markets/indian-indices/changeTableData?exName=N&indicesID=9&selPage=marketTerminal"
-SENSEX30_URL = "https://www.moneycontrol.com/markets/indian-indices/changeTableData?exName=B&indicesID=4&selPage=marketTerminal"
 
 ####### HELPER / GLOBAL FUNCTIONS #######
 ## function to get the soup of a webpage
@@ -67,21 +62,8 @@ def scrape_income_statement_stock(income_statement_url_1, income_statement_url_2
         result["DIVIDEND"][tr.select("td")[0].text].extend([td.text for td in tr.select("td")[1:-1]])
     return result
 
-####### MAIN SECTION #######
-
-# function to scrape the list of nifty 50 stocks
-def scrape_and_insert_nifty50_stocklist():
-    nifty_stocks = scrape_stocklist_from_indices(indices_url=NIFTY50_URL)
-    db = connect_to_the_database(database="Fundamentals")
-    for stock in nifty_stocks:
-        stock["created_at"] = datetime.now()
-        print(insert_and_update_collection(db, "nifty_list", "code", stock))
-    return nifty_stocks
-
 if __name__ == "__main__":
-    # get_soup(URL=SENSEX30_URL)
-    # scrape_stocklist_from_indices()
-    # scrape_and_insert_nifty50_stocklist()
+    # print(get_soup(URL="https://www.moneycontrol.com/markets/indian-indices/changeTableData?exName=N&indicesID=9&selPage=marketTerminal"))
+    # print(scrape_stocklist_from_indices(indices_url="https://www.moneycontrol.com/markets/indian-indices/changeTableData?exName=N&indicesID=9&selPage=marketTerminal"))
     print(scrape_income_statement_stock("https://www.moneycontrol.com/financials/adanienterprises/consolidated-profit-lossVI/AE13/1", 
             "https://www.moneycontrol.com/financials/adanienterprises/consolidated-profit-lossVI/AE13/2"))
-    
