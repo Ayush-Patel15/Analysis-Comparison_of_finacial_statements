@@ -46,7 +46,7 @@ def insert_and_update_collection(db, collection, identifier, data):
         document = cursor.find_one({identifier: data[identifier]})
         if document:
             data["created_at"] = document["created_at"]
-            data["updated_at"] = document["updated_at"]
+            data["updated_at"] = datetime.now()
             cursor.replace_one({identifier: data[identifier]}, data)
             return "success: data is updated"
         else:
