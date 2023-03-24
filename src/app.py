@@ -1,10 +1,21 @@
-from flask import Flask, render_template, request
+## IMPORTS
+from flask import Flask, render_template, redirect, url_for
 
+## APP INITIALISATION
 app = Flask(__name__)
 
+############ ROUTES ############
+# Base path to check the connection
 @app.route("/")
 def base_function():
-    return "<h2>Web page is working fine..!</h2>"
+    print("Web page is working fine..!")
+    return redirect("/home")
+
+# Home page path, or the landing page
+@app.route("/home")
+def home_page_function():
+    return render_template("home.html")
+
 
 if __name__ == "__main__":
-    app.run(debug=True, port=7070)
+    app.run(debug=True, port=5000)
