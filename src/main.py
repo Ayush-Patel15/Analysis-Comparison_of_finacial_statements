@@ -1,7 +1,9 @@
+## IMPORTS
 from db_connect import connect_to_the_database, insert_and_update_collection
 from scraper import scrape_stocklist_from_indices, scrape_income_statement_stock, scrape_balance_sheet_stock
 import time
 
+## GLOBAL VARIABLES
 NIFTY50_URL = "https://www.moneycontrol.com/markets/indian-indices/changeTableData?exName=N&indicesID=9&selPage=marketTerminal"
 INCOME_STATEMENT_URL = "https://www.moneycontrol.com/financials/{0}/consolidated-profit-lossVI/{1}/{2}"
 INCOME_STATEMENT_STANDALONE_URL = "https://www.moneycontrol.com/financials/{0}/profit-lossVI/{1}/{2}"
@@ -16,6 +18,7 @@ def insert_nifty50_stocklist():
         print(insert_and_update_collection(db, "nifty_list", "code", stock))
     return nifty_stocks
 
+# function to insert the income statement of all nifty 50 stocks
 def insert_income_statements_stocks():
     db = connect_to_the_database(database="Fundamentals")
     all_stocks = list(db["nifty_list"].find({}))
@@ -40,6 +43,7 @@ def insert_income_statements_stocks():
         print(insert_and_update_collection(db, "income_statements", "code", income_statement_data))
     return "msg: All 50 stocks inserted successfully..!"
 
+# function to insert the balance sheet of all nifty 50 stocks
 def insert_balance_sheet_stocks():
     db = connect_to_the_database(database="Fundamentals")
     all_stocks = list(db["nifty_list"].find({}))
