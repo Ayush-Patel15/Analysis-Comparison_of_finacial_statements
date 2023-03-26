@@ -10,15 +10,52 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- google fonts link -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet"> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400;500&display=swap" rel="stylesheet">
     <!-- custom stylesheet added -->
     <link rel="stylesheet" href="{{ url_for('static',filename='styles.css') }}">
 </head>
 
 <body>
+    <!-- top heading bar section -->
+    <section id="titlePage">
+        <div class="container-fluid">
+            <div class="row main_page_title">
+                <div class="col-md-12">
+                    <h2 class="text-center">Analysis & Comparison of Financial Statements</h2>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- main content section -->
+    <section id="mainContent">
+        <div class="container-fluid">
+            <div class="row financial_statement_data" id="financialStatementData">
+                <div class="col-md-3 stock_list" id="stockList">
+                    <div class="stock_list_heading mb-4 mt-2">
+                        <span>List of All 50 Stocks</span>
+                    </div>
+                    <div>
+                        <table class="table stocks">
+                            <tbody>
+                                {% for i in range(1, 51) %}
+                                    <tr><td><a>Stock {{ i }}</a></td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-9 financial_table" id="financialTable">
+
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 
 </html>

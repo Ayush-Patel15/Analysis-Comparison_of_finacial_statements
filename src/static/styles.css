@@ -1,5 +1,29 @@
 /* Body section */
 body {
-    font-family: 'Roboto', sans-serif;
+    color: #28282B;
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Alkatra', cursive;
     background-color: #28282B;
+}
+
+.main_page_title {
+    background-color: #FFD700;
+    padding: 15px 0px;
+}
+
+#financialStatementData {
+    padding: 25px;
+    color: whitesmoke;
+}
+
+.stock_list_heading {
+    font-size: 1.5em;
+}
+
+.stocks {
+    background-color: #28282B;
+}
+
+.stocks td {
+    color: whitesmoke;
 }
