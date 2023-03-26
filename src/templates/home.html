@@ -36,15 +36,15 @@
     <section id="mainContent">
         <div class="container-fluid">
             <div class="row financial_statement_data" id="financialStatementData">
-                <div class="col-md-3 stock_list" id="stockList">
+                <div class="col-md-2 stock_list" id="stockList">
                     <div class="stock_list_heading mb-4 mt-2">
                         <span>List of All 50 Stocks</span>
                     </div>
                     <div>
                         <table class="table stocks">
                             <tbody>
-                                {% for i in range(1, 51) %}
-                                    <tr><td><a>Stock {{ i }}</a></td></tr>
+                                {% for stock in stocks_list %}
+                                    <tr><td><a>{{ stock["full_name"] }}</a></td></tr>
                                 {% endfor %}
                             </tbody>
                         </table>

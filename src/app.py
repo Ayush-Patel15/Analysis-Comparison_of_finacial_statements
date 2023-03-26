@@ -1,5 +1,6 @@
 ## IMPORTS
 from flask import Flask, render_template, redirect, url_for
+from db_connect import connect_to_the_database
 
 ## APP INITIALISATION
 app = Flask(__name__)
@@ -14,7 +15,9 @@ def base_function():
 # Home page path, or the landing page
 @app.route("/home")
 def home_page_function():
-    return render_template("home.html")
+    db = connect_to_the_database(database="Fundamentals")
+    stocks_list = list(db["nifty_list"].find({}))
+    return render_template("home.html", stocks_list=stocks_list)
 
 
 if __name__ == "__main__":
