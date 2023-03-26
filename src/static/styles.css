@@ -28,3 +28,12 @@ body {
     color: whitesmoke;
     font-size: 1.1em;
 }
+
+.financial_table {
+    margin-top: 5px;
+    margin-left: 50px;
+}
+
+td.value {
+    font-size: 0.85em;
+}

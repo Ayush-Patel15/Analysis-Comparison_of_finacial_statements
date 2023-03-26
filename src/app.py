@@ -17,7 +17,8 @@ def base_function():
 def home_page_function():
     db = connect_to_the_database(database="Fundamentals")
     stocks_list = list(db["nifty_list"].find({}))
-    return render_template("home.html", stocks_list=stocks_list)
+    income_statement_data = db["income_statements"].find_one({"code": "AE13"})["data"]
+    return render_template("home.html", stocks_list=stocks_list, income_statement_data=income_statement_data)
 
 
 if __name__ == "__main__":

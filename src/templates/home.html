@@ -36,6 +36,7 @@
     <section id="mainContent">
         <div class="container-fluid">
             <div class="row financial_statement_data" id="financialStatementData">
+                <!-- Stock list section -->
                 <div class="col-md-2 stock_list" id="stockList">
                     <div class="stock_list_heading mb-4 mt-2">
                         <span>List of All 50 Stocks</span>
@@ -50,8 +51,45 @@
                         </table>
                     </div>
                 </div>
+                <!-- section to display income statement and balance sheet -->
                 <div class="col-md-9 financial_table" id="financialTable">
-
+                    <div class="row mb-4 mt-2 buttons">
+                        <div class="col-md-7 text-center income_statement_button">
+                            <button class="btn btn-success ">Income Statement</button>
+                        </div>
+                        <div class="col-md-5 text-center balance_sheet_button">
+                            <button class="btn btn-success ">Balance Sheet</button>
+                        </div>
+                    </div>
+                    <div class="row description">
+                        <span>Income statement: An income statement, also known as a profit and loss
+                            statement, is a financial statement that shows a company’s revenues, expenses, and
+                            net income over a specific period of time, such as a quarter or a year. The income
+                            statement is a critical component of a company’s financial reporting and is used by
+                            investors, creditors, and other stakeholders to evaluate a company’s financial
+                            performance and profitability.</span>
+                    </div>
+                    <div class="row mt-4 mb-4 table_data" id="tableData">
+                        <table class="table table-bordered table-dark table-striped table-hover">
+                            <tbody>
+                                {% for key in income_statement_data %}
+                                    {% if key == "YEARS" %}
+                                        <th style="width: 25%;"></th>
+                                        {% for year in income_statement_data[key] %}
+                                            <th>{{ year }}</th>
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td>{{ key }}</td>
+                                            {% for value in income_statement_data[key] %}
+                                                <td class="value">{{ value }}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
