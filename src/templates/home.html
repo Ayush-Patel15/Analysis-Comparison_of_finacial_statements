@@ -65,16 +65,19 @@
                             <button class="btn btn-success ">Balance Sheet</button>
                         </div>
                     </div>
-                    <div class="row description">
-                        <span>Income statement: An income statement, also known as a profit and loss
-                            statement, is a financial statement that shows a company’s revenues, expenses, and
-                            net income over a specific period of time, such as a quarter or a year. The income
-                            statement is a critical component of a company’s financial reporting and is used by
-                            investors, creditors, and other stakeholders to evaluate a company’s financial
-                            performance and profitability.</span>
-                    </div>
-                    <div class="row mt-4 mb-4 table_data" id="tableData">
-                        <h4 class="text-center mb-4">Income Statement of {{ stock_name }}</h4>
+                    <!-- Income statement Table -->
+                    <div class="row mt-4 mb-4 income_statement" id="incomeStatement">
+                        <div class="decscription">
+                            <span>
+                                Income statement: An income statement, also known as a profit and loss
+                                statement, is a financial statement that shows a company’s revenues, expenses, and
+                                net income over a specific period of time, such as a quarter or a year. The income
+                                statement is a critical component of a company’s financial reporting and is used by
+                                investors, creditors, and other stakeholders to evaluate a company’s financial
+                                performance and profitability.
+                            </span>
+                        </div>
+                        <h4 class="text-center mt-4 mb-4">Income Statement of {{ stock_name }}</h4>
                         <table class="table table-bordered table-dark table-striped table-hover">
                             <tbody>
                                 {% for key in income_statement_data %}
@@ -87,6 +90,38 @@
                                         <tr>
                                             <td>{{ key }}</td>
                                             {% for value in income_statement_data[key] %}
+                                                <td class="value">{{ value }}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- balance sheet table -->
+                    <div class="row mt-4 mb-4 balance_sheet" id="balanceSheet">
+                        <div class="decscription">
+                            <span>
+                                Balance Sheet: A balance sheet is a financial statement that reports a
+                                company’s assets, liabilities, and equity at a specific point in time, usually at the end
+                                of a quarter or a year. The balance sheet provides a snapshot of a company’s financial
+                                position and is used by investors, creditors, and other stakeholders to evaluate a
+                                company’s financial health and liquidity.
+                            </span>
+                        </div>
+                        <h4 class="text-center mt-4 mb-4">Balance Sheet of {{ stock_name }}</h4>
+                        <table class="table table-bordered table-dark table-striped table-hover">
+                            <tbody>
+                                {% for key in balance_sheet_data %}
+                                    {% if key == "YEARS" %}
+                                        <th style="width: 25%;"></th>
+                                        {% for year in balance_sheet_data[key] %}
+                                            <th>{{ year }}</th>
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td>{{ key }}</td>
+                                            {% for value in balance_sheet_data[key] %}
                                                 <td class="value">{{ value }}</td>
                                             {% endfor %}
                                         </tr>

@@ -22,10 +22,12 @@ def home_page_function():
     else:
         code = "AE13"
     income_statement = db["income_statements"].find_one({"code": code})
-    income_statement_data = income_statement["data"]
+    balance_sheet = db["balance_sheets"].find_one({"code": code})
     stock_name = income_statement["full_name"]
+    income_statement_data = income_statement["data"]
+    balance_sheet_data = balance_sheet["data"]
     return render_template("home.html", stocks_list=stocks_list, income_statement_data=income_statement_data, 
-                            stock_name=stock_name)
+                            stock_name=stock_name, balance_sheet_data=balance_sheet_data)
 
 
 if __name__ == "__main__":
