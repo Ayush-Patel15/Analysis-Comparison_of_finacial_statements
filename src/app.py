@@ -1,5 +1,5 @@
 ## IMPORTS
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for
 from db_connect import connect_to_the_database
 
 ## APP INITIALISATION
@@ -17,8 +17,15 @@ def base_function():
 def home_page_function():
     db = connect_to_the_database(database="Fundamentals")
     stocks_list = list(db["nifty_list"].find({}))
-    income_statement_data = db["income_statements"].find_one({"code": "AE13"})["data"]
-    return render_template("home.html", stocks_list=stocks_list, income_statement_data=income_statement_data)
+    if request.args:
+        code = request.args.get("code")
+    else:
+        code = "AE13"
+    income_statement = db["income_statements"].find_one({"code": code})
+    income_statement_data = income_statement["data"]
+    stock_name = income_statement["full_name"]
+    return render_template("home.html", stocks_list=stocks_list, income_statement_data=income_statement_data, 
+                            stock_name=stock_name)
 
 
 if __name__ == "__main__":

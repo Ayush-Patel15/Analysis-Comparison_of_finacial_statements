@@ -20,8 +20,9 @@ body {
     font-size: 1.5em;
 }
 
-.stocks {
-    background-color: #28282B;
+table.stocks a {
+    color: whitesmoke;
+    text-decoration: none;
 }
 
 .stocks td {

@@ -45,7 +45,11 @@
                         <table class="table stocks">
                             <tbody>
                                 {% for stock in stocks_list %}
-                                    <tr><td><a>{{ stock["full_name"] }}</a></td></tr>
+                                    <tr><td>
+                                        <a href="{{ url_for('home_page_function', url_name=stock['url_name'], code=stock['code']) }}">
+                                            {{ stock["full_name"] }}
+                                        </a>
+                                    </td></tr>
                                 {% endfor %}
                             </tbody>
                         </table>
@@ -70,6 +74,7 @@
                             performance and profitability.</span>
                     </div>
                     <div class="row mt-4 mb-4 table_data" id="tableData">
+                        <h4 class="text-center mb-4">Income Statement of {{ stock_name }}</h4>
                         <table class="table table-bordered table-dark table-striped table-hover">
                             <tbody>
                                 {% for key in income_statement_data %}
