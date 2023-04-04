@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400;500&display=swap" rel="stylesheet">
     <!-- custom stylesheet added -->
     <link rel="stylesheet" href="{{ url_for('static',filename='styles.css') }}">
+    <script src="{{ url_for('static',filename='script.js') }}"></script>
 </head>
 
 <body>
@@ -126,6 +127,40 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Liquidity Ratios section -->
+    <section id="liquidityRatios">
+        <div class="container-fluid">
+            <div class="row liquidity_ratios">
+                <h3><u>Liquidity Ratios of {{ stock_name }}</u></h3>
+                <div class="col-md-6 mt-2 working_capital" id="workingCapital">
+                    <div class="decscription">
+                        <span>
+                            <b>Working Capital:</b> From creditor’s point of view, working capital is always from the
+                            first indicators to be considered. This is because the creditor always seeks to find
+                            and read safety in the financial statements. Working Capital is calculated as the
+                            difference between short-term assets and short-term liabilities. 
+                        </span>
+                    </div>
+                    <div class="graph">
+                        <img src="data:image/png;base64,{{ wc_graph }}">
+                    </div>
+                </div>
+                <div class="col-md-6 mt-2 current_ratio" id="currentRatio">
+                    <div class="decscription">
+                        <span>
+                            <b>Current Ratio:</b> Current ratio shows a direct proportion between short term assets
+                            and short-term liabilities. Through this, it is measured the ability of a firm to 
+                            pay short-term liabilities at the maturity date (expiry date of payment).
+                        </span>
+                    </div>
+                    <div class="graph">
+                        <img src="data:image/png;base64,{{ cr_graph }}">
                     </div>
                 </div>
             </div>

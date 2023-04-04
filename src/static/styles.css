@@ -38,3 +38,14 @@ table.stocks a {
 td.value {
     font-size: 0.85em;
 }
+
+/* Liquidity Ratio */
+#liquidityRatios {
+    background-color: #FFD700;
+    padding: 20px 25px;
+}
+
+.graph img {
+    height: 90%;
+    width: 90%;
+}

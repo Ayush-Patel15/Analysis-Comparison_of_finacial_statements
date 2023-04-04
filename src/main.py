@@ -1,6 +1,10 @@
 ## IMPORTS
 from db_connect import connect_to_the_database, insert_and_update_collection
 from scraper import scrape_stocklist_from_indices, scrape_income_statement_stock, scrape_balance_sheet_stock
+import numpy as np
+from matplotlib.pyplot import Figure
+from io import BytesIO
+import base64
 import time
 
 ## GLOBAL VARIABLES
@@ -68,6 +72,52 @@ def insert_balance_sheet_stocks():
         print(insert_and_update_collection(db, "balance_sheets", "code", balance_sheet_data))
     return "msg: All 50 stocks inserted successfully..!"
 
+# Base function to plot graph of any required section
+def plot_graph(xAxis, yAxis, xLabel, yLabel):
+    fig = Figure(facecolor="#FFD700")
+    plt = fig.subplots()
+    plt.plot(xAxis, yAxis, color="black")
+    plt.set_xlabel(xLabel)
+    plt.set_ylabel(yLabel)
+    plt.set_xticks(xAxis[1::2])
+    buffer = BytesIO()
+    fig.savefig(buffer, format="png")
+    image = base64.b64encode(buffer.getbuffer()).decode("ascii")
+    return image
+
+# function to plot graph of working capital of a company
+def plot_working_capital(balance_sheet_data):
+    try:
+        current_assets = np.array(balance_sheet_data["Total Current Assets"], dtype="f")
+        current_liabilities = np.array(balance_sheet_data["Total Current Liabilities"], dtype="f")
+        working_capital = current_assets - current_liabilities
+    except Exception as e:
+        current_assets = np.array(balance_sheet_data["Cash and Balances with Reserve Bank of India"], dtype="f") + \
+                        np.array(balance_sheet_data["Balances with Banks Money at Call and Short Notice"], dtype="f") + \
+                        np.array(balance_sheet_data["Other Assets"], dtype="f")
+        current_liabilities = np.array(balance_sheet_data["Other Liabilities and Provisions"], dtype="f")
+        working_capital = current_assets - current_liabilities
+    years = balance_sheet_data["YEARS"][::-1]
+    working_capital = working_capital[::-1]
+    working_capital_graph = plot_graph(years, working_capital, "YEARS", "WORKING CAPITAL")
+    return working_capital_graph
+
+# function to plot graph of working capital of a company
+def plot_current_ratio(balance_sheet_data):
+    try:
+        current_assets = np.array(balance_sheet_data["Total Current Assets"], dtype="f")
+        current_liabilities = np.array(balance_sheet_data["Total Current Liabilities"], dtype="f")
+        current_ratio = current_assets / current_liabilities
+    except Exception as e:
+        current_assets = np.array(balance_sheet_data["Cash and Balances with Reserve Bank of India"], dtype="f") + \
+                        np.array(balance_sheet_data["Balances with Banks Money at Call and Short Notice"], dtype="f") + \
+                        np.array(balance_sheet_data["Other Assets"], dtype="f")
+        current_liabilities = np.array(balance_sheet_data["Other Liabilities and Provisions"], dtype="f")
+        current_ratio = current_assets / current_liabilities
+    years = balance_sheet_data["YEARS"][::-1]
+    current_ratio = current_ratio[::-1]
+    current_ratio_graph = plot_graph(years, current_ratio, "YEARS", "CURRENT RATIO")
+    return current_ratio_graph
 
 if __name__ == "__main__":
     # insert_nifty50_stocklist()
