@@ -39,14 +39,14 @@ def scrape_income_statement_stock(income_statement_url_1, income_statement_url_2
     result["YEARS"] = [td.text for td in rows[0].select("td")[1:-1]]
     for row in rows[2:]:
         if row not in heading_rows:
-            result[row.select("td")[0].text] = [td.text for td in row.select("td")[1:-1]]
+            result[row.select("td")[0].text] = [td.text.replace(",","") for td in row.select("td")[1:-1]]
     ####### scraping for page 2 ########
     rows, heading_rows = get_rows_and_heading_rows(income_statement_url_2)
     result["YEARS"].extend([td.text for td in rows[0].select("td")[1:-1]])
     for row in rows[2:]:
         if row not in heading_rows:
             try:
-                result[row.select("td")[0].text].extend([td.text for td in row.select("td")[1:-1]])
+                result[row.select("td")[0].text].extend([td.text.replace(",","") for td in row.select("td")[1:-1]])
             except Exception as e:
                 pass
     return result
@@ -58,14 +58,14 @@ def scrape_balance_sheet_stock(balance_sheet_url_1, balance_sheet_url_2):
     result["YEARS"] = [td.text for td in rows[0].select("td")[1:-1]]
     for row in rows[2:]:
         if row not in heading_rows:
-            result[row.select("td")[0].text] = [td.text for td in row.select("td")[1:-1]]
+            result[row.select("td")[0].text] = [td.text.replace(",","") for td in row.select("td")[1:-1]]
     #### scraping for page 2 ####
     rows, heading_rows = get_rows_and_heading_rows(balance_sheet_url_2)
     result["YEARS"].extend([td.text for td in rows[0].select("td")[1:-1]])
     for row in rows[2:]:
         if row not in heading_rows:
             try:
-                result[row.select("td")[0].text].extend([td.text for td in row.select("td")[1:-1]])
+                result[row.select("td")[0].text].extend([td.text.replace(",","") for td in row.select("td")[1:-1]])
             except Exception as e:
                 pass
     return result
