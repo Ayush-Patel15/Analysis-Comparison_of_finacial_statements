@@ -15,7 +15,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400;500&display=swap" rel="stylesheet">
     <!-- custom stylesheet added -->
     <link rel="stylesheet" href="{{ url_for('static',filename='styles.css') }}">
-    <script src="{{ url_for('static',filename='script.js') }}"></script>
 </head>
 
 <body>
@@ -137,7 +136,7 @@
     <section id="liquidityRatios">
         <div class="container-fluid">
             <div class="row liquidity_ratios">
-                <h3><u>Liquidity Ratios of {{ stock_name }}</u></h3>
+                <h2><u>Liquidity Ratios of {{ stock_name }}</u></h2>
                 <div class="col-md-6 mt-2 working_capital" id="workingCapital">
                     <div class="decscription">
                         <span>
@@ -161,6 +160,41 @@
                     </div>
                     <div class="graph">
                         <img src="data:image/png;base64,{{ cr_graph }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profitability Ratios section -->
+    <section id="profitabilityRatios">
+        <div class="container-fluid">
+            <div class="row mt-4 profitability_ratios">
+                <h2><u>Profitability Ratios of {{ stock_name }}</u></h2>
+                <div class="col-md-6 mt-2 return_on_assets" id="returnOnAssets">
+                    <div class="decscription">
+                        <span>
+                            <b>Return On Assets:</b> It shows a direct proportion between net profit and total
+                            assets. The return on total assets is a ratio that measures the effectiveness of using
+                            total assets to generate net profit.<br>
+                            Return on Assets = (Net Profit / Total Assets) * 100
+                        </span>
+                    </div>
+                    <div class="graph">
+                        <img src="data:image/png;base64,{{ roa_graph }}">
+                    </div>
+                </div>
+                <div class="col-md-6 mt-2 return_on_equity" id="returnOnEquity">
+                    <div class="decscription">
+                        <span>
+                            <b>Return On Equity:</b> It measures the profit made from investments of regular
+                            shareholders in the company’s assets. In other words, the rate of return on share
+                            capital is the rate of return from regular shares invested by the owners of the
+                            enterprise.&nbsp; Return On Equity = (Net Profit / Total Shareholder's Fund) * 100
+                        </span>
+                    </div>
+                    <div class="graph">
+                        <img src="data:image/png;base64,{{ roe_graph }}">
                     </div>
                 </div>
             </div>

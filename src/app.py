@@ -1,7 +1,7 @@
 ## IMPORTS
 from flask import Flask, render_template, request, redirect, url_for
 from db_connect import connect_to_the_database
-from main import plot_working_capital, plot_current_ratio
+from main import plot_working_capital, plot_current_ratio, plot_return_on_assets, plot_return_on_equity
 
 ## APP INITIALISATION
 app = Flask(__name__)
@@ -29,9 +29,11 @@ def home_page_function():
     balance_sheet_data = balance_sheet["data"]
     wc_graph = plot_working_capital(balance_sheet_data)
     cr_graph = plot_current_ratio(balance_sheet_data)
+    roa_graph = plot_return_on_assets(income_statement_data, balance_sheet_data)
+    roe_graph = plot_return_on_equity(income_statement_data, balance_sheet_data)
     return render_template("home.html", stocks_list=stocks_list, income_statement_data=income_statement_data, 
                             stock_name=stock_name, balance_sheet_data=balance_sheet_data,
-                            wc_graph=wc_graph, cr_graph=cr_graph)
+                            wc_graph=wc_graph, cr_graph=cr_graph, roa_graph=roa_graph, roe_graph=roe_graph)
 
 
 if __name__ == "__main__":

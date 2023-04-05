@@ -8,6 +8,9 @@ import base64
 import time
 
 ## GLOBAL VARIABLES
+## #FFD700: Golden like color
+## #28282B: Black like color
+## #F5F5F5: white like color
 NIFTY50_URL = "https://www.moneycontrol.com/markets/indian-indices/changeTableData?exName=N&indicesID=9&selPage=marketTerminal"
 INCOME_STATEMENT_URL = "https://www.moneycontrol.com/financials/{0}/consolidated-profit-lossVI/{1}/{2}"
 INCOME_STATEMENT_STANDALONE_URL = "https://www.moneycontrol.com/financials/{0}/profit-lossVI/{1}/{2}"
@@ -73,8 +76,8 @@ def insert_balance_sheet_stocks():
     return "msg: All 50 stocks inserted successfully..!"
 
 # Base function to plot graph of any required section
-def plot_graph(xAxis, yAxis, xLabel, yLabel, graphType, threshold=0):
-    fig = Figure(facecolor="#FFD700")
+def plot_graph(xAxis, yAxis, xLabel, yLabel, graphType, threshold=0, facecolor="#FFD700"):
+    fig = Figure(facecolor=facecolor)
     plt = fig.subplots()
     if graphType == "line":
         plt.plot(xAxis, yAxis, color="black", marker="o")
@@ -85,6 +88,11 @@ def plot_graph(xAxis, yAxis, xLabel, yLabel, graphType, threshold=0):
     plt.set_xticks(xAxis[1::2])
     # Horizontal threshold point
     plt.axhline(y=threshold, color="black", linestyle="dashed")
+    # If facecolor is black
+    if facecolor == "#28282B":  # black
+        plt.xaxis.label.set_color("#F5F5F5")    # white
+        plt.yaxis.label.set_color("#F5F5F5")
+        plt.tick_params(colors="#F5F5F5", which='both')
     buffer = BytesIO()
     fig.savefig(buffer, format="png")
     image = base64.b64encode(buffer.getbuffer()).decode("ascii")
@@ -123,6 +131,33 @@ def plot_current_ratio(balance_sheet_data):
     current_ratio = current_ratio[::-1]
     current_ratio_graph = plot_graph(years, current_ratio, "YEARS", "CURRENT RATIO", "line", 1)
     return current_ratio_graph
+
+# function to plot graph of Return on Assets (ROA) of a company
+def plot_return_on_assets(income_statement_data, balance_sheet_data):
+    try:
+        net_profit = np.array(income_statement_data["Profit/Loss For The Period"], dtype="f")
+    except Exception as e:
+        net_profit = np.array(income_statement_data["Net Profit / Loss for The Year"], dtype="f")
+    total_assets = np.array(balance_sheet_data["Total Assets"], dtype="f")
+    return_on_assets = (net_profit / total_assets) * 100
+    years = income_statement_data["YEARS"][::-1]
+    return_on_assets = return_on_assets[::-1]
+    return_on_assets_graph = plot_graph(years, return_on_assets, "YEARS", "ROA (%)", "line", facecolor="#28282B")
+    return return_on_assets_graph
+
+# function to plot graph of Return on Equity (ROE) of a company
+def plot_return_on_equity(income_statement_data, balance_sheet_data):
+    try:
+        net_profit = np.array(income_statement_data["Profit/Loss For The Period"], dtype="f")
+        total_equity = np.array(balance_sheet_data["Total Shareholders Funds"], dtype="f")
+    except Exception as e:
+        net_profit = np.array(income_statement_data["Net Profit / Loss for The Year"], dtype="f")
+        total_equity = np.array(balance_sheet_data["Total ShareHolders Funds"], dtype="f")
+    return_on_equity = (net_profit / total_equity) * 100
+    years = income_statement_data["YEARS"][::-1]
+    return_on_equity = return_on_equity[::-1]
+    return_on_equity_graph = plot_graph(years, return_on_equity, "YEARS", "ROE (%)", "line", 12, "#28282B")
+    return return_on_equity_graph
 
 if __name__ == "__main__":
     # insert_nifty50_stocklist()

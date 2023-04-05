@@ -49,3 +49,9 @@ td.value {
     height: 90%;
     width: 90%;
 }
+
+/* Profitability Ratios */
+#profitabilityRatios {
+    color: whitesmoke;
+    padding: 20px 25px;
+}
