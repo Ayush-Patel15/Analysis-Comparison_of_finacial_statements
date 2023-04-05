@@ -73,13 +73,18 @@ def insert_balance_sheet_stocks():
     return "msg: All 50 stocks inserted successfully..!"
 
 # Base function to plot graph of any required section
-def plot_graph(xAxis, yAxis, xLabel, yLabel):
+def plot_graph(xAxis, yAxis, xLabel, yLabel, graphType, threshold=0):
     fig = Figure(facecolor="#FFD700")
     plt = fig.subplots()
-    plt.plot(xAxis, yAxis, color="black")
+    if graphType == "line":
+        plt.plot(xAxis, yAxis, color="black", marker="o")
+    elif graphType == "bar":
+        plt.bar(xAxis, yAxis, color="black")
     plt.set_xlabel(xLabel)
     plt.set_ylabel(yLabel)
     plt.set_xticks(xAxis[1::2])
+    # Horizontal threshold point
+    plt.axhline(y=threshold, color="black", linestyle="dashed")
     buffer = BytesIO()
     fig.savefig(buffer, format="png")
     image = base64.b64encode(buffer.getbuffer()).decode("ascii")
@@ -99,7 +104,7 @@ def plot_working_capital(balance_sheet_data):
         working_capital = current_assets - current_liabilities
     years = balance_sheet_data["YEARS"][::-1]
     working_capital = working_capital[::-1]
-    working_capital_graph = plot_graph(years, working_capital, "YEARS", "WORKING CAPITAL")
+    working_capital_graph = plot_graph(years, working_capital, "YEARS", "WORKING CAPITAL", "bar", 0)
     return working_capital_graph
 
 # function to plot graph of working capital of a company
@@ -116,7 +121,7 @@ def plot_current_ratio(balance_sheet_data):
         current_ratio = current_assets / current_liabilities
     years = balance_sheet_data["YEARS"][::-1]
     current_ratio = current_ratio[::-1]
-    current_ratio_graph = plot_graph(years, current_ratio, "YEARS", "CURRENT RATIO")
+    current_ratio_graph = plot_graph(years, current_ratio, "YEARS", "CURRENT RATIO", "line", 1)
     return current_ratio_graph
 
 if __name__ == "__main__":
