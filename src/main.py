@@ -159,6 +159,21 @@ def plot_return_on_equity(income_statement_data, balance_sheet_data):
     return_on_equity_graph = plot_graph(years, return_on_equity, "YEARS", "ROE (%)", "line", 12, "#28282B")
     return return_on_equity_graph
 
+# function to plot graph of Debt to Equity (D/E) of a company
+def plot_debt_to_equity(balance_sheet_data):
+    try:
+        total_debt = np.array(balance_sheet_data["Long Term Borrowings"], dtype="f") + \
+                        np.array(balance_sheet_data["Short Term Borrowings"], dtype="f")
+        total_equity = np.array(balance_sheet_data["Total Shareholders Funds"], dtype="f")
+    except Exception as e:
+        total_debt = np.array(balance_sheet_data["Borrowings"], dtype="f")
+        total_equity = np.array(balance_sheet_data["Total ShareHolders Funds"], dtype="f")
+    debt_to_equity = (total_debt / total_equity)
+    years = balance_sheet_data["YEARS"][::-1]
+    debt_to_equity = debt_to_equity[::-1]
+    debt_to_equity_graph = plot_graph(years, debt_to_equity, "YEARS", "Debt-to-Equity", "line", 2)
+    return debt_to_equity_graph
+
 if __name__ == "__main__":
     # insert_nifty50_stocklist()
     # print(insert_income_statements_stocks())

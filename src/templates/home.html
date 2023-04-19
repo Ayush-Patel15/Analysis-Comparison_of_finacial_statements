@@ -200,6 +200,29 @@
             </div>
         </div>
     </section>
+
+    <!-- Long-Term SOlvency Ratios section -->
+    <section id="longTermSolvencyRatios">
+        <div class="container-fluid">
+            <div class="row mt-4 long_term_solvency_ratios">
+                <h2><u>Long-term Solvency Ratios of {{ stock_name }}</u></h2>
+                <div class="col-md-6 mt-2 debt_to_equity" id="debtToEquity">
+                    <div class="decscription">
+                        <span>
+                            <b>Debt on Equity Ratio:</b> It is the ratio of long-term debt to total invested capital (capitalization) 
+                            or the total equity / share capital.
+                            Debt ratio to Equity = (Total Debt / Share Capitals)
+                        </span>
+                    </div>
+                    <div class="graph">
+                        <img src="data:image/png;base64,{{ de_graph }}">
+                    </div>
+                </div>
+                <div class="col-md-6 mt-2 conclusion" id="conclusion">
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 
 <script>
