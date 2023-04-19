@@ -75,6 +75,40 @@ def insert_balance_sheet_stocks():
         print(insert_and_update_collection(db, "balance_sheets", "code", balance_sheet_data))
     return "msg: All 50 stocks inserted successfully..!"
 
+# Function for overall analysis of nifty 50 on all parameters
+def overall_analysis_nifty(income_statement_data, balance_sheet_data):
+    try:
+        current_assets = np.array(balance_sheet_data["Total Current Assets"], dtype="f")
+        current_liabilities = np.array(balance_sheet_data["Total Current Liabilities"], dtype="f")
+        net_profit = np.array(income_statement_data["Profit/Loss For The Period"], dtype="f")
+        total_equity = np.array(balance_sheet_data["Total Shareholders Funds"], dtype="f")
+        total_debt = np.array(balance_sheet_data["Long Term Borrowings"], dtype="f") + \
+                        np.array(balance_sheet_data["Short Term Borrowings"], dtype="f")
+    except Exception as e:
+        current_assets = np.array(balance_sheet_data["Cash and Balances with Reserve Bank of India"], dtype="f") + \
+                        np.array(balance_sheet_data["Balances with Banks Money at Call and Short Notice"], dtype="f") + \
+                        np.array(balance_sheet_data["Other Assets"], dtype="f")
+        current_liabilities = np.array(balance_sheet_data["Other Liabilities and Provisions"], dtype="f")
+        net_profit = np.array(income_statement_data["Net Profit / Loss for The Year"], dtype="f")
+        total_equity = np.array(balance_sheet_data["Total ShareHolders Funds"], dtype="f")
+        total_debt = np.array(balance_sheet_data["Borrowings"], dtype="f")
+    total_assets = np.array(balance_sheet_data["Total Assets"], dtype="f")
+    if len(net_profit) > len(total_assets):
+        difference = len(net_profit) - len(total_assets)
+        net_profit = net_profit[:-difference]
+    working_capital = current_assets - current_liabilities
+    current_ratio = np.divide(current_assets, current_liabilities, out=np.zeros_like(current_assets), where=current_liabilities!=0)
+    return_on_assets = (np.divide(net_profit, total_assets, out=np.zeros_like(net_profit), where=total_assets!=0)) * 100
+    return_on_equity = (np.divide(net_profit, total_equity, out=np.zeros_like(net_profit), where=total_equity!=0)) * 100
+    debt_to_equity = (np.divide(total_debt, total_equity, out=np.zeros_like(total_debt), where=total_equity!=0))
+    working_capital = working_capital[::-1]
+    current_ratio = current_ratio[::-1]
+    return_on_assets = return_on_assets[::-1]
+    return_on_equity = return_on_equity[::-1]
+    debt_to_equity = debt_to_equity[::-1]
+    mean_lst = [working_capital.mean(),current_ratio.mean(),return_on_assets.mean(), return_on_equity.mean(), debt_to_equity.mean()]
+    return mean_lst
+
 # Base function to plot graph of any required section
 def plot_graph(xAxis, yAxis, xLabel, yLabel, graphType, threshold=0, facecolor="#FFD700"):
     fig = Figure(facecolor=facecolor)
@@ -103,13 +137,12 @@ def plot_working_capital(balance_sheet_data):
     try:
         current_assets = np.array(balance_sheet_data["Total Current Assets"], dtype="f")
         current_liabilities = np.array(balance_sheet_data["Total Current Liabilities"], dtype="f")
-        working_capital = current_assets - current_liabilities
     except Exception as e:
         current_assets = np.array(balance_sheet_data["Cash and Balances with Reserve Bank of India"], dtype="f") + \
                         np.array(balance_sheet_data["Balances with Banks Money at Call and Short Notice"], dtype="f") + \
                         np.array(balance_sheet_data["Other Assets"], dtype="f")
         current_liabilities = np.array(balance_sheet_data["Other Liabilities and Provisions"], dtype="f")
-        working_capital = current_assets - current_liabilities
+    working_capital = current_assets - current_liabilities
     years = balance_sheet_data["YEARS"][::-1]
     working_capital = working_capital[::-1]
     working_capital_graph = plot_graph(years, working_capital, "YEARS", "WORKING CAPITAL", "bar", 0)
@@ -120,13 +153,12 @@ def plot_current_ratio(balance_sheet_data):
     try:
         current_assets = np.array(balance_sheet_data["Total Current Assets"], dtype="f")
         current_liabilities = np.array(balance_sheet_data["Total Current Liabilities"], dtype="f")
-        current_ratio = current_assets / current_liabilities
     except Exception as e:
         current_assets = np.array(balance_sheet_data["Cash and Balances with Reserve Bank of India"], dtype="f") + \
                         np.array(balance_sheet_data["Balances with Banks Money at Call and Short Notice"], dtype="f") + \
                         np.array(balance_sheet_data["Other Assets"], dtype="f")
         current_liabilities = np.array(balance_sheet_data["Other Liabilities and Provisions"], dtype="f")
-        current_ratio = current_assets / current_liabilities
+    current_ratio = current_assets / current_liabilities
     years = balance_sheet_data["YEARS"][::-1]
     current_ratio = current_ratio[::-1]
     current_ratio_graph = plot_graph(years, current_ratio, "YEARS", "CURRENT RATIO", "line", 1)
