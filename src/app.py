@@ -68,16 +68,11 @@ def analysis_and_comparison_function():
                 max_roe_stock = key
         if analysis_table[key][4] < 2:
             count_de += 1
-    return {
-        "analysis_table": analysis_table,
-        "count_working_capital": count_working_capital,
-        "count_current_ratio": count_current_ratio,
-        "average_roa":  round(sum_roa/50, 2),
-        "average_roe":  round(sum_roe/50, 2),
-        "max_roe": max_roe,
-        "max_roe_stock": max_roe_stock,
-        "count_de": count_de
-    }
+    average_roa = round(sum_roa/50, 2)
+    average_roe = round(sum_roe/50, 2)
+    return render_template("analysis_report.html", analysis_table=analysis_table, count_working_capital=count_working_capital,
+            count_cuurent_ratio=count_current_ratio, average_roa=average_roa, average_roe=average_roe, count_de=count_de,
+            max_roe=max_roe, max_roe_stock=max_roe_stock)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
