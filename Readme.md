@@ -4,6 +4,11 @@ Welcome to the Nifty 50 Stock Financial Statement Analysis project! This project
 
 Project URL: [https://nifty-50-stock-analysis.onrender.com/](https://nifty-50-stock-analysis.onrender.com/)
 
+Consist of 2 main routes:
+
+1. [HOME](https://nifty-50-stock-analysis.onrender.com/)
+2. [ANAYSIS-AND-COMPARISON](https://nifty-50-stock-analysis.onrender.com/analysis-and-comparison)
+
 ## Table of Contents
 
 - [Project Overview](#project-overview)
