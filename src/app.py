@@ -74,5 +74,6 @@ def analysis_and_comparison_function():
             count_cuurent_ratio=count_current_ratio, average_roa=average_roa, average_roe=average_roe, count_de=count_de,
             max_roe=max_roe, max_roe_stock=max_roe_stock)
 
+### App run
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run()
