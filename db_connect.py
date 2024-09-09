@@ -12,10 +12,12 @@ load_dotenv()
 # Function to create a connection, with mongodb database
 def connect_to_the_database(database):
     try:
+        print("Trying to connect to the MongoDb database")
         client = MongoClient(
-            os.environ.get("MONGODB_URI")
+            os.getenv("MONGODB_URI")
         )
         db = client[database]
+        print("Connection successful")
         return db
     except Exception as e:
         print("MongoDb Database connection request falied..!")

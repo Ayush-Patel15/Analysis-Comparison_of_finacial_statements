@@ -17,6 +17,7 @@ def base_function():
 # Home page path, or the landing page
 @app.route("/home")
 def home_page_function():
+    print("Call for the home page")
     db = connect_to_the_database(database="Fundamentals")
     stocks_list = list(db["nifty_list"].find({}))
     if request.args:
@@ -40,6 +41,7 @@ def home_page_function():
 # Path for overall analysis, and comparison in between the stocks
 @app.route("/analysis-and-comparison")
 def analysis_and_comparison_function():
+    print("Call for the analysis page")
     analysis_table = {}
     count_working_capital, count_current_ratio, count_roe, count_de = (0,0,0,0)
     sum_roa, sum_roe = (0,0)
@@ -76,4 +78,4 @@ def analysis_and_comparison_function():
 
 ### App run
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
