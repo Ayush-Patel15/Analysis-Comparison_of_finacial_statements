@@ -2,12 +2,12 @@
 
 Welcome to the Nifty 50 Stock Financial Statement Analysis project! This project aims to provide a comprehensive analysis of the financial statements of the Nifty 50 stocks from 2013 to 2022. By analyzing key financial indicators and ratios, this analysis helps stakeholders make informed decisions about potential investments.
 
-Project URL: [https://nifty-50-stock-analysis.onrender.com/](https://nifty-50-stock-analysis.onrender.com/)
+Project URL: [https://niftystocksfinancialstatement.pythonanywhere.com/](URL)
 
 Consist of 2 main routes:
 
-1. [HOME](https://nifty-50-stock-analysis.onrender.com/)
-2. [ANAYSIS-AND-COMPARISON](https://nifty-50-stock-analysis.onrender.com/analysis-and-comparison)
+1. [HOME](https://niftystocksfinancialstatement.pythonanywhere.com/)
+2. [ANAYSIS-AND-COMPARISON](https://niftystocksfinancialstatement.pythonanywhere.com/analysis-and-comparison)
 
 ## Table of Contents
 
@@ -97,7 +97,7 @@ python app.py
 
 This will start the Flask server, and you should see the application running on `http://localhost:5000`.
 
-If you want to visit the deployed version of the project, simply visit the provided URL: [Web_URL](https://nifty-50-stock-analysis.onrender.com/), to access the application.
+If you want to visit the deployed version of the project, simply visit the provided URL: [Web_URL](https://niftystocksfinancialstatement.pythonanywhere.com/), to access the application.
 
 ## Contributing
 
