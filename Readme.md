@@ -2,7 +2,7 @@
 
 Welcome to the Nifty 50 Stock Financial Statement Analysis project! This project aims to provide a comprehensive analysis of the financial statements of the Nifty 50 stocks from 2013 to 2022. By analyzing key financial indicators and ratios, this analysis helps stakeholders make informed decisions about potential investments.
 
-Project URL: [https://analysis-comparison-of-finacial.onrender.com/home](URL)
+Project URL: [URL](https://analysis-comparison-of-finacial.onrender.com/home)
 
 Consist of 2 main routes:
 
